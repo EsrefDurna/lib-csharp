@@ -1,0 +1,68 @@
+/// Test Case
+/// Stores service status for later use
+
+namespace babelrpc.io/Demo
+namespace csharp "BabelRpc.Demo"
+namespace asp "BabelDemo"
+
+/// The State shows whether logging in ON or OFF
+enum State {
+	OFF = 0,
+	ON = 1
+}
+
+/// Logs defines constants for the various log types
+const Logs {
+	ErrorLog = "ErrorLog";
+	GdsLog = "GdsLog";
+}
+
+/// A joke with a question and answer
+struct Joke {
+	/// The question
+	string Question;
+
+	/// The answer
+	@csharpx [System.ComponentModel.DataAnnotations.Required]
+	string Answer;
+
+	/// When the joke was added
+	datetime DateAdded;
+}
+
+/// The Info struct contains a map of the logging status for each type of log.
+struct Info {
+	/// Map of log types
+	map<string, State> Status;
+
+	/// Jokes for your amusement
+	list<Joke> Jokes;
+
+	int32 logLevel;
+}
+
+/// The LogControl service allows you to fetch information about a log, set the logging status, or
+/// see the logging status for all logs
+service LogControl {
+	/// Gets the status of a single log
+	State GetLogStatus(
+		/// The name of the log
+		string logName);
+	/// Sets the status for a single log
+	void SetLogStatus(
+		/// Name of the log
+		string logName,
+		/// state to assign
+		State state);
+	/// Set multiple statuses at once.
+	Info SetMulti(
+		/// data structure containing map of statuses to set
+		Info data, int32 logLevel = 1);
+	/// Returns the status of all logs
+	Info GetLoggingStatus();
+
+	/// Add a joke
+	void AddJoke(
+		/// A nice work-friendly joke
+		Joke joke);
+}

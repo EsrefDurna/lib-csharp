@@ -1,0 +1,37 @@
+/// Test Case
+/// Fake storing and manipulations with demo credit card numbers
+namespace babelrpc.io/Demo
+namespace csharp "BabelRpc.Demo"
+
+enum CCKind 
+{
+	Visa = 0, MasterCard = 1, Amex = 2
+}
+
+struct CreditCard
+{
+	///Credit card type
+	@cs[System.ComponentModel.DataAnnotations.Required]
+	CCKind Kind;
+	///Credit card number 
+	@cs[System.ComponentModel.DataAnnotations.CreditCard]
+	@cs[System.ComponentModel.DataAnnotations.Required]
+	string Number;
+	///Expiration year
+	@cs[System.ComponentModel.DataAnnotations.Required]
+	@cs[System.ComponentModel.DataAnnotations.Range(1980, 2100)]
+	int16 ExpirationYear;
+	///Expiration month
+	@cs[System.ComponentModel.DataAnnotations.Required]
+	@cs[System.ComponentModel.DataAnnotations.Range(1, 12)]
+	byte ExpirationMonth;
+}
+
+/// Manipulates with demo credit card info
+service DemoCC
+{
+	///Validates CC info and pretends to save it
+	void Save(CreditCard cardInfo);
+	///Gets random demo CC info of given kind
+	CreditCard GetRandomCard(CCKind kind);
+}

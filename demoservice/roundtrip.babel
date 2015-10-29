@@ -1,0 +1,124 @@
+/// Test Case
+/// Roundtrip all types
+
+import "demo.babel"
+
+namespace babelrpc.io/Demo
+namespace csharp "BabelRpc.Demo"
+namespace asp "RoundTrip"
+
+/// Meat or potatoes
+enum Type {
+	MEAT = 1,
+	POTATOES = 2
+}
+
+/// Some string you might use someday
+const Strings {
+	CHAR = 'A';
+	STRING = "All your base are belong to us.";
+}
+
+/// A struct that feels empty inside
+abstract struct Empty {
+}
+
+/// A nice wholesome struct
+@blah [TestAttribute(X = 3, Y = -5.5)]
+struct Wholesome extends Empty {
+	/// Doc Comment for my null
+	int32 myNULL;
+
+	/// Doc Comment for my bool
+	bool myBOOL = true; // here's my BOOL
+
+	/// Doc Comment for my byte
+	byte myBYTE = 8; // here's my BYTE
+
+	/// Doc Comment for my int8
+	int8 myINT8 = -8; // here's my INT8
+
+	/// Doc Comment for my int16
+	int16 myINT16 = 16; // here's my INT16
+
+	/// Doc Comment for my int32
+	int32 myINT32 = 32; // here's my INT32
+
+	/// Doc Comment for my int64
+	int64 myINT64 = 64; // here's my INT64
+
+	/// Doc Comment for my float32
+	float32 myFLOAT32 = -32.32; // here's my FLOAT32
+
+	/// Doc Comment for my float64
+	float64 myFLOAT64 = 64.64; // here's my FLOAT64
+
+	/// Doc Comment for my null 2
+	@csharpx [System.ComponentModel.DataAnnotations.Required]
+	int32 myNULL2;
+
+	/// Doc Comment for my string
+	string mySTRING = Strings.STRING; // here's my STRING
+
+	/// Doc Comment for my datetime
+	datetime myDATETIME; // here's my DATETIME
+
+	/// Doc Comment for my decimal
+	decimal myDECIMAL; // here's my DECIMAL
+
+	/// Doc Comment for my char
+	char myCHAR = Strings.CHAR; // here's my CHAR
+
+	/// Doc Comment for my binary
+	binary myBINARY; // here's my BINARY
+
+	/// Doc Comment for my Joke
+	Joke myJOKE; // here's my JOKE
+
+	/// Doc Comment for my null Joke
+	Joke myNullJOKE; // here's my JOKE
+
+	/// List of names
+	list<string as "Name"> Names;
+
+	/// List of jokes
+	list<Joke> Jokes;
+
+	/// Make of names to jokes
+	map<string as "Name",Joke> Pokes;
+
+	/// Let's see if we can break something
+	list<map<string as "Name", list<Joke> as "Jokes"> as "Block"> Argh;
+}
+
+/// Struct to test an initialized value
+struct DefaultTest {
+	int32 X = 32;
+}
+
+/// Roundtripper service - see if the data you send it actually comes
+/// back in one piece!
+service Roundtripper {
+
+	/// Return back what was sent, changing it if desried
+	Wholesome SendReceive(
+		/// Send in a wholesome data structure
+		Wholesome wholesome,
+		/// Indicates if you want to change it
+		 bool alter);
+
+	/// Send me some data - I know just what to do with it
+	void Send(/** Some nice data to file away */ Wholesome wholesome);
+
+	/// I'll send you back some data similar to what you sent
+	Wholesome Receive();
+
+	/// Returns a DefaultTest struct with the X value nulled out
+	DefaultTest ReturnNulledDefault();
+
+	/// Accepts a DefaultTest struct and verifies that X is 32
+	bool AcceptNulledDefault(DefaultTest d);
+
+	/// Let's be exceptional
+	bool Fail();
+}
