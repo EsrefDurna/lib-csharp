@@ -180,8 +180,8 @@ The default Babel protocol is HTTP which will returns following HTTP status code
 <tbody>
 <tr><td>200</td><td>No error</td></tr>
 <tr><td>400</td><td>Error in the request data, for example validation issues</td></tr>
-<tr><td>500/td><td>Internal service error, for example database timeout</td></tr>
-</tbody></table>     |
+<tr><td>500</td><td>Internal service error, for example database timeout</td></tr>
+</tbody></table>     
 
 `ServiceError` data is a standard way to return information about the error condition for a Babel service, it may contain following information:
 
@@ -238,7 +238,7 @@ The validation attributes can be added to .babel model by using scoped attribute
 	@cs[System.ComponentModel.DataAnnotations.Range(1980, 2100)]
 	int16 ExpirationYear;
 
-Other useful Babel model extensions
+Other Useful Babel Model Extensions
 -----------------------------------
 
 `BabelRpc.BabelModelExtensions` also provides following useful `IBabelModel` extensions:
