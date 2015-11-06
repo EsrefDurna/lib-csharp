@@ -1,6 +1,4 @@
-/// Test Case
 /// Roundtrip all types
-
 import "demo.babel"
 
 namespace babelrpc.io/Demo

@@ -32,17 +32,17 @@ namespace BabelRpc.Demo
 
 			if (foo != null) foo = Uri.UnescapeDataString(foo);
 			if (requestId != null) requestId = Uri.UnescapeDataString(requestId);
-			return new demoServiceImpl(foo, requestId);
+			return new DemoServiceImpl(foo, requestId);
 		}
 	}
 
-	public class demoServiceImpl : ILogControlAsync
+	public class DemoServiceImpl : ILogControlAsync
 	{
 		private static Dictionary<string, State?> m_dict;
 		private static List<Joke> m_jokes;
 		private static Joke s_status;
 		
-		static demoServiceImpl()
+		static DemoServiceImpl()
 		{
 			m_dict = new Dictionary<string, State?>();
 			m_jokes = new List<Joke>();
@@ -53,7 +53,7 @@ namespace BabelRpc.Demo
 			m_jokes.Add(s_status);
 		}
 
-		public demoServiceImpl(string foo, string requestId)
+		public DemoServiceImpl(string foo, string requestId)
 		{
 			s_status.Answer = string.Format("Foo: {0}; RequrestId: {1}", foo, requestId);
 		}
@@ -79,7 +79,6 @@ namespace BabelRpc.Demo
 
 		public Task<Info> GetLoggingStatusAsync()
 		{
-			//I'm not in a controller here, so i need to get the tracer object
 			Info result = new Info();
 			foreach (var p in m_dict)
 			{

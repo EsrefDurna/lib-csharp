@@ -12,7 +12,7 @@ namespace BabelRpcTestMvcService
 	{
 		public ActionResult Index()
 		{
-			return new ContentResult { Content = "BabelRpcTestMvcService Home Page", ContentEncoding = Encoding.UTF8, ContentType = "text/plain" };
+			return View("~/Views/Home.cshtml");
 		}
 
 		public ActionResult LogControl(string id)

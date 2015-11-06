@@ -79,7 +79,7 @@
     <Compile Include="ModelProcessingTests.cs" />
     <Compile Include="DemoTest.cs" />
     <Compile Include="JSONSerializerAdditionalTest.cs" />
-    <Compile Include="DemoCCTests.cs" />
+    <Compile Include="DemoCreditCardTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BabelRpc.Mvc\BabelRpc.Mvc.csproj">

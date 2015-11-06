@@ -60,7 +60,7 @@ namespace BabelRpc.Test
 		  ""DateAdded"": ""2013-11-01T16:23:17.617-04:00""
 		}
 	  ],
-	  ""Vojta"": [
+	  ""John"": [
 		{
 		  ""Question"": ""Q7"",
 		  ""Answer"": ""A7"",
@@ -150,7 +150,7 @@ namespace BabelRpc.Test
 						}
 					},
 					{
-						"Vojta", new List<Joke>()
+						"John", new List<Joke>()
 						{
 							new Joke() { Question = "Q7", Answer = "A7", DateAdded = DateTime.UtcNow },
 							new Joke() { Question = "Q8", Answer = "A8", DateAdded = DateTime.Now },
@@ -328,7 +328,7 @@ namespace BabelRpc.Test
 		public void TestJsonDeserializationFormat1()
 		{
 			const string JSON = @"{
-  ""companyId"": 1
+  ""companyId"": 123
 }";
 			var ser = new BabelJsonSerializer();
 
@@ -336,7 +336,7 @@ namespace BabelRpc.Test
 			using(var ms = new MemoryStream(Encoding.UTF8.GetBytes(JSON)))
 			{
 				var result = ser.Deserialize<GetByIdRequest>(ms);
-				Assert.AreEqual(1, result.CompanyId);
+				Assert.AreEqual(123, result.CompanyId);
 			}
 		}
 
@@ -397,7 +397,7 @@ namespace BabelRpc.Test
 		}
 
 	
-		class BabelDecimalAndLongConverter : JsonConverter
+		/*class BabelDecimalAndLongConverter : JsonConverter
 		{
 			public BabelDecimalAndLongConverter()
 			{
@@ -496,7 +496,7 @@ namespace BabelRpc.Test
 					writer.WriteValue(value.ToString());
 				}
 			}
-		}
+		}*/
 		private static Newtonsoft.Json.JsonSerializer GetNewtonsoftSerializer()
 		{
 			var newtonsoftSerializer = new Newtonsoft.Json.JsonSerializer() {
@@ -505,9 +505,9 @@ namespace BabelRpc.Test
 				TypeNameAssemblyFormat = System.Runtime.Serialization.Formatters.FormatterAssemblyStyle.Simple
 				//Binder = new TypeNameSerializationBinder(defaultNamespace) 
 			};
-			newtonsoftSerializer.Converters.Add(new Newtonsoft.Json.Converters.IsoDateTimeConverter() { DateTimeFormat = "yyyy'-'MM'-'dd'T'HH':'mm':'ss.FFFK" });
+			/*newtonsoftSerializer.Converters.Add(new Newtonsoft.Json.Converters.IsoDateTimeConverter() { DateTimeFormat = "yyyy'-'MM'-'dd'T'HH':'mm':'ss.FFFK" });
 			newtonsoftSerializer.Converters.Add(new Newtonsoft.Json.Converters.StringEnumConverter { CamelCaseText = false });
-			newtonsoftSerializer.Converters.Add(new BabelDecimalAndLongConverter());
+			newtonsoftSerializer.Converters.Add(new BabelDecimalAndLongConverter());*/
 			return newtonsoftSerializer;
 		}
 

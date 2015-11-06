@@ -12,11 +12,11 @@ namespace BabelRpc.Demo
 	{
 		protected override IRoundtripper InitBusinessLogic()
 		{
-			return new roundtripperServiceImpl();
+			return new RoundtripperServiceImpl();
 		}
 	}
 
-	public class roundtripperServiceImpl : IRoundtripper
+	public class RoundtripperServiceImpl : IRoundtripper
 	{
 		#region IRoundtripperAsync Members
 		public Wholesome SendReceive(Wholesome wholesome, bool? alter)
@@ -83,7 +83,7 @@ namespace BabelRpc.Demo
 						}
 					},
 					{
-						"Vojta", new List<Joke>()
+						"John", new List<Joke>()
 						{
 							new Joke() { Question = "Q7", Answer = "A7", DateAdded = DateTime.UtcNow },
 							new Joke() { Question = "Q8", Answer = "A8", DateAdded = DateTime.Now },

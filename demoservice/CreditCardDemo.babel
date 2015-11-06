@@ -1,4 +1,3 @@
-/// Test Case
 /// Fake storing and manipulations with demo credit card numbers
 namespace babelrpc.io/Demo
 namespace csharp "BabelRpc.Demo"
@@ -28,7 +27,7 @@ struct CreditCard
 }
 
 /// Manipulates with demo credit card info
-service DemoCC
+service DemoCreditCardService
 {
 	///Validates CC info and pretends to save it
 	void Save(CreditCard cardInfo);

@@ -1,6 +1,3 @@
-/// Test Case
-/// Stores service status for later use
-
 namespace babelrpc.io/Demo
 namespace csharp "BabelRpc.Demo"
 namespace asp "BabelDemo"
@@ -14,7 +11,7 @@ enum State {
 /// Logs defines constants for the various log types
 const Logs {
 	ErrorLog = "ErrorLog";
-	GdsLog = "GdsLog";
+	MessageLog = "MessageLog";
 }
 
 /// A joke with a question and answer

@@ -8,9 +8,9 @@ namespace BabelRpc.Demo
 	[TestClass]
 	public class DemoCCTests
 	{
-		static DemoCCClient GetClient()
+		static DemoCreditCardServiceClient GetClient()
 		{
-			return new DemoCCClient("http://localhost/BabelRpcTestMvcService/");
+			return new DemoCreditCardServiceClient("http://localhost/BabelRpcTestMvcService/");
 		}
 
 		[TestMethod]

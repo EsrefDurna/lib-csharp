@@ -72,20 +72,19 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Code\BabelAreaRegistration.cs" />
-    <Content Include="App_Code\roundtripServiceImpl.cs" />
-    <Content Include="App_Code\HomeController.cs" />
-    <Content Include="App_Code\gen-babel\demoInterface.cs" />
-    <Content Include="App_Code\gen-babel\demoModel.cs" />
-    <Content Include="App_Code\gen-babel\roundtripInterface.cs" />
-    <Content Include="App_Code\gen-babel\roundtripModel.cs" />
-    <Content Include="App_Code\demoServiceImpl.cs" />
-    <Content Include="App_Code\gen-babel\demomvcAsyncController.cs" />
-    <Content Include="App_Code\gen-babel\roundtripmvcController.cs" />
-    <Content Include="App_Code\gen-babel\CreditCardDemoInterface.cs" />
-    <Content Include="App_Code\gen-babel\CreditCardDemoModel.cs" />
-    <Content Include="App_Code\gen-babel\CreditCardDemomvcController.cs" />
-    <Content Include="App_Code\CreditCardDemoServiceImpl.cs" />
+    <Compile Include="RoundtripServiceImpl.cs" />
+    <Compile Include="HomeController.cs" />
+    <Compile Include="gen-babel\demoInterface.cs" />
+    <Compile Include="gen-babel\demoModel.cs" />
+    <Compile Include="gen-babel\roundtripInterface.cs" />
+    <Compile Include="gen-babel\roundtripModel.cs" />
+    <Compile Include="DemoServiceImpl.cs" />
+    <Compile Include="gen-babel\demomvcAsyncController.cs" />
+    <Compile Include="gen-babel\roundtripmvcController.cs" />
+    <Compile Include="gen-babel\CreditCardDemoInterface.cs" />
+    <Compile Include="gen-babel\CreditCardDemoModel.cs" />
+    <Compile Include="gen-babel\CreditCardDemomvcController.cs" />
+    <Compile Include="CreditCardDemoServiceImpl.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -112,6 +111,9 @@
       <Project>{da874700-db76-46f7-8cf4-247cf50e9067}</Project>
       <Name>BabelRpc</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Home.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -12,7 +12,7 @@ namespace BabelRpc.Demo
 	///  Manipulates with demo credit card info
 	/// </summary>
 	[System.CodeDom.Compiler.GeneratedCode("Babel", "")]
-	public partial class DemoCCController : BabelRpc.Mvc.BabelController<IDemoCC>
+	public partial class DemoCreditCardServiceController : BabelRpc.Mvc.BabelController<IDemoCreditCardService>
 	{ 
 		class SaveRequest : BabelRpc.Mvc.IBabelRequest
 		{ 

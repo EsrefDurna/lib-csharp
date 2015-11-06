@@ -146,6 +146,10 @@ namespace BabelRpc
 		#endregion
 	}
 
+	/// <summary>
+	/// Report known application error condition. This will result in an error with the InvalidRequest error kind
+	/// Useful as a base for other kind of errors
+	/// </summary>
 	public class BabelApplicationException : BabelException
 	{
 		public BabelApplicationException(string message, Exception innerException = null)
@@ -177,7 +181,6 @@ namespace BabelRpc
 	}
 	 */
 	
-
 	public class BabelValidionException : BabelApplicationException
 	{
 		public BabelValidionException(IEnumerable<ValidationResult> vResults)

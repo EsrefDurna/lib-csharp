@@ -29,11 +29,7 @@
 				
 		RegisterGlobalFilters(GlobalFilters.Filters);
 		RegisterRoutes(RouteTable.Routes);
-
-		//http://haacked.com/archive/2008/03/13/url-routing-debugger.aspx
-		//RouteDebug.RouteDebugger.RewriteRoutesForTesting(RouteTable.Routes);
 	}
-
 	
 	protected void Application_Error(Object sender, EventArgs e)
 	{
