@@ -190,17 +190,17 @@ The default Babel protocol is HTTP which will returns following HTTP status code
 -   `Tags` – optional strings to help categorizing the error   
 -   `Context` - optional additional error details (user identifier, request identifier, etc)
 -   `Details` – human readable errors details/message in English
--   `Inner` – optional nested server error
-    -   `Errors` – one or more detailed error condition descriptions
+-   `Inner` – optional nested server error. Useful to represent InnerException chain.
+-   `Errors` – one or more detailed error condition descriptions. Most of the exceptions will have a single Error object in this list. Validation error is a good example of `ServiceError` when multiple Error objects are useful.     
     -   `Code`<sup>\*</sup> – error code identifying error situation (e.g. VALIADATION\_ERROR)
     -   `Params`<sup>\*</sup> –provide error condition specifics (e.g. name of the fields that didn’t pass the validation)
     -   `Message` – human readable error message. One can use format strings with {0}…{n} placeholders that will be replaces with Params in the result error message sent to a client
-    
+
   		<sup>\*</sup> - combination of `Code` and `Params` can be used by a client to create localized error message
 
 **These are error handling related classes defined in the Babel .Net library:**
  
-`IBabelException` - interface that supports Context, list of `Error`s and error kind (currently `Unknown` or `InvalidRequest`). This interface is used for translation an exception to the `ServiceError`.
+`IBabelException` - interface that supports Context, list of `Error`s and error kind (currently `Unknown` or `InvalidRequest`). This interface is used for the translation of exceptions to `ServiceError`.
 
 `BabelException` - is a simplest `Exception` implementing the `IBabelException` interface. If thrown will result in the Unknown error kind. This error kind supposed to be used for the error that happened on the service side, with valid request data (e.g. timeout). Used internally by Babel client.
 
@@ -210,9 +210,11 @@ The default Babel protocol is HTTP which will returns following HTTP status code
 
 `ServiceApplicationException` - inherited from `BabelApplicationException`. Provides more convenient syntax to throw exceptions from the Babel services.
 
-Exception to ServiceError Translation
+Converting Exception to ServiceError
 -------------------------------------
-A service developer can map exceptions to service error by:
+The goal of this step is to translate all unhandled exceptions to unified Babel `ServiceError` response model.
+As bare minimum `Time`, `Details` and at least one `Error` should be populated.   
+A service developer can translate an exception to a `ServiceError` by:
 
 1. Using `ServiceApplicationException` or `BabelException`. Please see the `DemoCreditCardServiceImpl.Save` method in the BabelRpc.TestMvcService\CreditCardDemoServiceImpl.cs for an example. 
 -   Creating exception that implements `IBabelException` interface. Check the `BabelException` implementation for an example.  

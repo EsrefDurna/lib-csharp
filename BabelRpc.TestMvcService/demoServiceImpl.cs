@@ -55,7 +55,7 @@ namespace BabelRpc.Demo
 
 		public DemoServiceImpl(string foo, string requestId)
 		{
-			s_status.Answer = string.Format("Foo: {0}; RequrestId: {1}", foo, requestId);
+			s_status.Answer = string.Format("Foo: {0}; RequestId: {1}", foo, requestId);
 		}
 
 		#region ILogControl Members
