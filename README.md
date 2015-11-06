@@ -214,13 +214,13 @@ Exception to ServiceError Translation
 -------------------------------------
 A service developer can map exceptions to service error by:
 
-
-
 1. Using `ServiceApplicationException` or `BabelException`. Please see the `DemoCreditCardServiceImpl.Save` method in the BabelRpc.TestMvcService\CreditCardDemoServiceImpl.cs for an example. 
 -   Creating exception that implements `IBabelException` interface. Check the `BabelException` implementation for an example.  
 -   Mapping existing exception types by overriding `TranslateError(…)` method in the controller class. Please see the `DemoCreditCardServiceController.TranslateError` method in the BabelRpc.TestMvcService\CreditCardDemoServiceImpl.cs for an example of implementation
 
-The TranslateError (#3) has advantage of writing a service logic implementation that is decoupled from Babel, so developers don't need to use special Babel  exception types. All error reporting logic will be easier to maintain as it will not be distributed across entire application.  
+The TranslateError (#3) has advantage of writing a service logic implementation that is decoupled from Babel, so developers don't need to use special Babel  exception types. All error reporting logic will be easier to maintain as it will not be distributed across entire application.
+
+*Note:* this has nothing to do with localization/internationalization. In general service should return error message in some well known language that most of the developers can understand (e.g. English) and a service client can translate it to user language using error code and parameters.     
 
 Babel Error Codes
 -----------------
