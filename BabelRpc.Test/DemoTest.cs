@@ -135,7 +135,7 @@ namespace BabelRpc.Test
 			Assert.AreEqual(finfo.Status["TransLog3"], State.ON, key + ": TransLog3");
 			Assert.AreEqual(finfo.Status["TransLog4"], State.OFF, key + ": TransLog4");
 
-			Assert.AreEqual(string.Format("Foo: {0}; RequrestId: {1}", FOO, REQUEST_ID), finfo.Jokes.First(j=>j.Question == "Status?").Answer, "Headers transmited wrong");
+			Assert.AreEqual(string.Format("Foo: {0}; RequestId: {1}", FOO, REQUEST_ID), finfo.Jokes.First(j=>j.Question == "Status?").Answer, "Headers transmited wrong");
 		}
 
 		const string FOO = "12124214\n\r2345hfgfh & ;;;";

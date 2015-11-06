@@ -212,7 +212,6 @@ namespace BabelRpc.Test
 					nsJson2 = Encoding.UTF8.GetString(arr);
 				}
 			}
-			//int i = StringCompare(nsJson1, nsJson2);
 			Assert.AreEqual(nsJson1, nsJson2, "Clone should be the same");
 		}
 
@@ -254,6 +253,7 @@ namespace BabelRpc.Test
 		[TestMethod]
 		public void TestJsonSerialization()
 		{
+			//Newtonsoft serializer doesn't produce the same result, so we can't really use it here
 			var data = GetWholesome();
 
 			var ser = new BabelJsonSerializer();
@@ -270,22 +270,6 @@ namespace BabelRpc.Test
 				babelData = ms.ToArray();
 				babelJson = Encoding.UTF8.GetString(babelData);
 			}
-
-			/*Newtonsoft serializer doesn't produce the same result
-			 * var newtonsoftSerializer = GetNewtonsoftSerializer();
-			//serializer.Converters.Add(new ItinServices.Models.XmlSerializedBlobConverter());
-			string nsJson;
-			using (var ms = new MemoryStream())
-			{
-				using(var writer = new StreamWriter(ms, new UTF8Encoding(false), 1024, true))
-				{
-					newtonsoftSerializer.Serialize(writer, data);
-					writer.Flush();
-					byte[] arr = ms.ToArray();
-					nsJson = Encoding.UTF8.GetString(arr);
-					Assert.IsTrue(string.Compare(nsJson, babelJson, true) == 0, "Babel:     {0}\r\n NewtonSoft: <{1}>", nsJson, babelJson);
-				}
-			}*/
 
 			using (var ms = new MemoryStream(babelData))
 			{
@@ -396,118 +380,13 @@ namespace BabelRpc.Test
 			}
 		}
 
-	
-		/*class BabelDecimalAndLongConverter : JsonConverter
-		{
-			public BabelDecimalAndLongConverter()
-			{
-			}
-
-			public override bool CanConvert(System.Type objectType)
-			{
-				return objectType == typeof(long) || objectType == typeof(decimal) || objectType == typeof(ulong) ||
-					   objectType == typeof(long?) || objectType == typeof(decimal?) || objectType == typeof(ulong?);
-			}
-
-			static Exception GetException(JsonReader reader, string message, Exception inner = null)
-			{
-				string extra = "";
-				var lineInfo = reader as IJsonLineInfo;
-				if((lineInfo != null) && lineInfo.HasLineInfo())
-				{
-					extra = string.Format(", line {0}, position {1}", lineInfo.LineNumber, lineInfo.LinePosition);
-				}
-
-				return new JsonSerializationException(string.Format("{0} Path '{1}'{2}.", message, reader.Path, extra), inner);
-			}
-
-			public override object ReadJson(JsonReader reader, System.Type objectType, object existingValue, JsonSerializer serializer)
-			{
-				if(reader.TokenType == JsonToken.Null)
-				{
-					bool isNullable = IsNullable(objectType);
-					if(!isNullable)
-					{
-						throw GetException(reader, string.Format("Cannot convert null value to {0}.", objectType.Name));
-					}
-					return null;
-				}
-				switch(reader.TokenType)
-				{
-					case JsonToken.String:
-						string str = reader.Value.ToString();
-						if(objectType == typeof(decimal) || objectType == typeof(decimal?))
-						{
-							decimal res;
-							if(!decimal.TryParse(str, out res))
-							{
-								throw GetException(reader, string.Format("Cannot convert {0} value to decimal.", str));
-							}
-							return res;
-						}
-						if(objectType == typeof(long) || objectType == typeof(long?))
-						{
-							long res;
-							if(!long.TryParse(str, out res))
-							{
-								throw GetException(reader, string.Format("Cannot convert {0} value to long.", str));
-							}
-							return res;
-						}
-						if(objectType == typeof(ulong) || objectType == typeof(ulong?))
-						{
-							ulong res;
-							if(!ulong.TryParse(str, out res))
-							{
-								throw GetException(reader, string.Format("Cannot convert {0} value to ulong.", str));
-							}
-							return res;
-						}
-						throw GetException(reader, string.Format("Unsupported object type {0}.", objectType.Name));
-					case JsonToken.Float:
-					case JsonToken.Integer:
-						try
-						{
-							bool isNullable = IsNullable(objectType);
-							if(isNullable) objectType = Nullable.GetUnderlyingType(objectType);
-							return Convert.ChangeType(reader.Value, objectType);
-						}
-						catch(Exception err)
-						{
-							throw GetException(reader, string.Format("Cannot convert {0} value to {1}.", reader.Value, objectType.Name), err);
-						}
-					default: throw GetException(reader, string.Format("Unexpected token type {0}.", reader.TokenType));
-				}
-			}
-
-			private static bool IsNullable(System.Type objectType)
-			{
-				return objectType.IsGenericType && objectType.GetGenericTypeDefinition() == typeof(Nullable<>);
-			}
-
-			public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
-			{
-				if(value == null)
-				{
-					writer.WriteNull();
-				}
-				else
-				{
-					writer.WriteValue(value.ToString());
-				}
-			}
-		}*/
 		private static Newtonsoft.Json.JsonSerializer GetNewtonsoftSerializer()
 		{
 			var newtonsoftSerializer = new Newtonsoft.Json.JsonSerializer() {
 				TypeNameHandling = Newtonsoft.Json.TypeNameHandling.None,
 				NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore,
 				TypeNameAssemblyFormat = System.Runtime.Serialization.Formatters.FormatterAssemblyStyle.Simple
-				//Binder = new TypeNameSerializationBinder(defaultNamespace) 
 			};
-			/*newtonsoftSerializer.Converters.Add(new Newtonsoft.Json.Converters.IsoDateTimeConverter() { DateTimeFormat = "yyyy'-'MM'-'dd'T'HH':'mm':'ss.FFFK" });
-			newtonsoftSerializer.Converters.Add(new Newtonsoft.Json.Converters.StringEnumConverter { CamelCaseText = false });
-			newtonsoftSerializer.Converters.Add(new BabelDecimalAndLongConverter());*/
 			return newtonsoftSerializer;
 		}
 
@@ -555,10 +434,12 @@ namespace BabelRpc.Test
 			sw.Stop();
 			long tNK2 = sw.ElapsedMilliseconds;
 
-			Assert.Fail(string.Format("BabelJSONSerializer: {0}\t\t {1}\r\nNewtonsoft: {2}\t\t {3}", ((double)t1) / NUM_RUN, ((double)t2) / NUM_RUN, ((double)tNK1) / NUM_RUN, ((double)tNK2) / NUM_RUN));
+			Assert.Inconclusive(string.Format("BabelJSONSerializer: {0}\t\t {1}\r\nNewtonsoft: {2}\t\t {3}", ((double)t1) / NUM_RUN, ((double)t2) / NUM_RUN, ((double)tNK1) / NUM_RUN, ((double)tNK2) / NUM_RUN));
 
 		}
 
+		//Uncomment the following line to compare serialization speed of Babel serializer vs Newtonsoft/json.net one
+		//Be sure to run in the Release mode for fair comparison!
 		//[TestMethod]
 		public void TestSerializationSpeed()
 		{
@@ -574,6 +455,8 @@ namespace BabelRpc.Test
 				});
 		}
 
+		//Uncomment the following line to compare deserialization speed of Babel serializer vs Newtonsoft/json.net one
+		//Be sure to run in the Release mode for fair comparison!
 		//[TestMethod]
 		public void TestDeserializationSpeed()
 		{

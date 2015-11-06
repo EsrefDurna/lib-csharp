@@ -49,7 +49,7 @@ namespace BabelRpc.Demo
 			m_jokes.Add(new Joke() { Question = "Why did the chicken code in VBScript?", Answer = "His head was cut off.", DateAdded = DateTime.Now });
 			m_jokes.Add(new Joke() { Question = "How many VBScript programmers does it take to screw in a light bulb?", Answer = "Three. One IsObject, one IsArray, and one to figure out the difference.", DateAdded = DateTime.Now });
 			m_jokes.Add(new Joke() { Question = "What is the keyword \"set\" for?", Answer = "The code wasn't unreliable enough without the extra keyword.", DateAdded = DateTime.Now });
-			s_status = new Joke() { Question = "Status?", Answer = "Foo: RequrestId: ", DateAdded = DateTime.Now };
+			s_status = new Joke() { Question = "Status?", Answer = "Foo: RequestId: ", DateAdded = DateTime.Now };
 			m_jokes.Add(s_status);
 		}
 
