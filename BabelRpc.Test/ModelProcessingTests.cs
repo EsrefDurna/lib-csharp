@@ -95,7 +95,6 @@ namespace BabelRpc.Test
 				MyBYTE = 8,
 				MyINT8 = -8,
 				MyINT16 = 16,
-				//MyINT32 = TestEnum.THREE,
 				MyINT64 = 64,
 				MyFLOAT32 = -30.32f,
 				MyFLOAT64 = 64.64,
@@ -282,9 +281,6 @@ namespace BabelRpc.Test
 		
 		public class GetByIdRequest : BabelRpc.Mvc.IBabelRequest
 		{
-			/// <summary>
-			/// The COMPANY_ID in the OUTTASK_COMPANY table in the OUTTASK database
-			/// </summary>
 			public int? CompanyId;
 
 			#region IBabelRequest
@@ -535,7 +531,7 @@ namespace BabelRpc.Test
 			}
 			Assert.IsNotNull(result);
 
-			//unsuccessful deserialization (client used wrong encoding)
+			//Unsuccessful deserialization (client used wrong encoding)
 			var whStr = new Wholesome { MySTRING = "\u0402\u0404" }.ToString();
 			bytes = Encoding.Unicode.GetBytes(whStr);
 			try
@@ -551,7 +547,7 @@ namespace BabelRpc.Test
 				//expected
 			}
 
-			//unsuccessful deserialization using garbage bytes
+			//Unsuccessful deserialization using garbage bytes
 			bytes = new byte[] { 14, 0, 0, 0, 16, 118, 97, 108, 0, 17, 0, 0, 0, 0 };
 
 			try

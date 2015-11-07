@@ -32,8 +32,8 @@ namespace BabelRpc.Demo
 
 		public void Send(Wholesome wholesome)
 		{
+			//Just validate and do nothing
 			wholesome.Validate(); // The exception if thrown will be logged/handled by the framework
-			// ok got it
 		}
 
 		public Wholesome Receive()

@@ -68,7 +68,7 @@ namespace BabelRpc.Demo
 				var se = new ServiceError { Time = DateTime.UtcNow, Details = knfe.Message };
 				se.Errors.Add(new ErrorEx("ITEM_NOT_FOUND", knfe.Message));
 
-				//Typically we don't want to disclose stack trace, but it might be OK for an internal service
+				//Typically we don't want to disclose the stack trace, but it might be OK for an internal service
 				//se.AddContext("ERROR_INFO", "STACK_TRACE", knfe.StackTrace);
 				
 				//Handling inner exception if present
